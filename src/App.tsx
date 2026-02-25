@@ -10,6 +10,7 @@ import EventsPage from "./pages/EventsPage";
 import TeamPage from "./pages/TeamPage";
 import NewsletterPage from "./pages/NewsletterPage";
 import ContactPage from "./pages/ContactPage";
+import FaqPage from "./pages/FaqPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/equipe" element={<TeamPage />} />
             <Route path="/newsletter" element={<NewsletterPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/faq" element={<FaqPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
