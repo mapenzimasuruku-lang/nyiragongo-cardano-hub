@@ -20,9 +20,10 @@ const Footer = () => {
             <div className="space-y-2">
               {[
                 { label: "Accueil", path: "/" },
-                { label: "Articles", path: "/articles" },
+                { label: "Blog", path: "/articles" },
                 { label: "Événements", path: "/evenements" },
                 { label: "Équipe", path: "/equipe" },
+                { label: "Newsletter", path: "/newsletter" },
                 { label: "Contact", path: "/contact" },
               ].map((item) => (
                 <Link key={item.path} to={item.path} className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
