@@ -14,7 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      event_reservations: {
+        Row: {
+          created_at: string
+          email: string
+          event_id: string
+          full_name: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_id: string
+          full_name: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_id?: string
+          full_name?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_reservations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          created_at: string
+          date_end: string | null
+          date_start: string
+          description: string
+          external_link: string | null
+          full_content: string | null
+          id: string
+          image_url: string | null
+          is_upcoming: boolean
+          location: string
+          moderator: string | null
+          reserved_seats: number
+          slug: string
+          title: string
+          total_seats: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date_end?: string | null
+          date_start: string
+          description: string
+          external_link?: string | null
+          full_content?: string | null
+          id?: string
+          image_url?: string | null
+          is_upcoming?: boolean
+          location: string
+          moderator?: string | null
+          reserved_seats?: number
+          slug: string
+          title: string
+          total_seats?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date_end?: string | null
+          date_start?: string
+          description?: string
+          external_link?: string | null
+          full_content?: string | null
+          id?: string
+          image_url?: string | null
+          is_upcoming?: boolean
+          location?: string
+          moderator?: string | null
+          reserved_seats?: number
+          slug?: string
+          title?: string
+          total_seats?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
