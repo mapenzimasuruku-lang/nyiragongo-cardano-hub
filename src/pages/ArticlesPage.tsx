@@ -1,37 +1,6 @@
-const articles = [
-  {
-    id: 1,
-    title: "Bienvenue sur le blog du Cardano Nyiragongo Hub",
-    summary: "Retrouvez toutes nos actualités, tutoriels et récits d'événements pour rester connecté avec la communauté Cardano locale et internationale.",
-    category: "Actualités",
-    date: "25 février 2026",
-  },
-  {
-    id: 2,
-    title: "Introduction à la blockchain Cardano",
-    summary: "Découvrez les fondamentaux de Cardano, son approche scientifique et pourquoi elle se distingue dans l'écosystème blockchain.",
-    category: "Tutoriels",
-    date: "20 février 2026",
-  },
-  {
-    id: 3,
-    title: "Retour sur le Hackathon CATS 2025",
-    summary: "Des équipes africaines ont transformé des idées locales en prototypes fonctionnels sur Cardano lors de cette série de hackathons.",
-    category: "Hackathons",
-    date: "15 janvier 2026",
-  },
-  {
-    id: 4,
-    title: "Comment participer aux projets communautaires",
-    summary: "Guide pratique pour rejoindre les initiatives du hub et contribuer à l'adoption de Cardano en RDC.",
-    category: "Projets communautaires",
-    date: "10 janvier 2026",
-  },
-];
-
-const categories = ["Tous", "Hackathons", "Masterclass", "Actualités", "Tutoriels", "Projets communautaires"];
-
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { articles, categories } from "@/data/articles";
 
 const ArticlesPage = () => {
   const [activeCategory, setActiveCategory] = useState("Tous");
@@ -71,19 +40,33 @@ const ArticlesPage = () => {
           {/* Articles grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filtered.map((article) => (
-              <article
+              <Link
+                to={`/articles/${article.id}`}
                 key={article.id}
-                className="rounded-xl border border-border bg-card p-6 shadow-card hover:border-primary/30 transition-all"
+                className="group rounded-xl border border-border bg-card shadow-card hover:border-primary/30 transition-all overflow-hidden"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xs font-medium bg-accent/10 text-accent px-2 py-1 rounded-full">
-                    {article.category}
-                  </span>
-                  <span className="text-xs text-muted-foreground">{article.date}</span>
+                {article.image && (
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-medium bg-accent/10 text-accent px-2 py-1 rounded-full">
+                      {article.category}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{article.date}</span>
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                    {article.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{article.summary}</p>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{article.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{article.summary}</p>
-              </article>
+              </Link>
             ))}
           </div>
 
