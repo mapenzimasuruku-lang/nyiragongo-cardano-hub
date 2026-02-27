@@ -1,11 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { label: "Accueil", path: "/" },
+  { label: "Mission", path: "/mission" },
   { label: "Blog", path: "/articles" },
   { label: "Événements", path: "/evenements" },
+  { label: "Galerie", path: "/galerie" },
   { label: "Équipe", path: "/equipe" },
   { label: "FAQ", path: "/faq" },
   { label: "Contact", path: "/contact" },
@@ -38,12 +41,16 @@ const Navbar = () => {
               {item.label}
             </Link>
           ))}
+          <ThemeToggle />
         </div>
 
         {/* Mobile toggle */}
-        <button className="md:hidden p-2" onClick={() => setOpen(!open)}>
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button className="p-2" onClick={() => setOpen(!open)}>
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

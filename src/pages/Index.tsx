@@ -1,9 +1,23 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Users, BookOpen, Calendar } from "lucide-react";
+import { ArrowRight, Users, BookOpen, Calendar, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import heroBanner from "@/assets/hero-banner.jpg";
 
 const Index = () => {
+  const { data: events } = useQuery({
+    queryKey: ["events-stats"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("events").select("id, reserved_seats");
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const totalEvents = events?.length ?? 0;
+  const totalBeneficiaries = 150;
+
   return (
     <div>
       {/* Hero */}
@@ -43,7 +57,30 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats / Pillars */}
+      {/* Stats */}
+      <section className="py-12 border-b border-border bg-card/50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+            <div className="rounded-xl border border-border bg-card p-6 shadow-card">
+              <TrendingUp className="h-8 w-8 mx-auto mb-3 text-accent" />
+              <p className="text-3xl font-bold text-gradient">{totalEvents}</p>
+              <p className="text-sm text-muted-foreground mt-1">Événements organisés</p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6 shadow-card">
+              <Users className="h-8 w-8 mx-auto mb-3 text-primary" />
+              <p className="text-3xl font-bold text-gradient">{totalBeneficiaries}+</p>
+              <p className="text-sm text-muted-foreground mt-1">Étudiants formés</p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6 shadow-card">
+              <Calendar className="h-8 w-8 mx-auto mb-3 text-accent" />
+              <p className="text-3xl font-bold text-gradient">100%</p>
+              <p className="text-sm text-muted-foreground mt-1">Événements gratuits</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pillars */}
       <section className="py-20 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
